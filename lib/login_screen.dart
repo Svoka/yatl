@@ -11,6 +11,15 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+
+  final _formKey = GlobalKey<FormState>();
+
+  final FocusNode _usernameFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   final LoginInteractor _loginInteractor = GetIt.I<LoginInteractor>();
 
   @override
@@ -25,28 +34,113 @@ class _LoginPageState extends State<LoginPage> {
             stream: _loginInteractor.state,
             builder: (context, snapshot) {
 
-              switch (snapshot.data.runtimeType) {
-                case ErrorState:
-                  ErrorState state = snapshot.data;
-                  return ErrorStateWidget(errorText: state.error,);
+              LoginState data = snapshot.data;
+              _usernameController.text = data?.username;
 
-                case LoadingState:
-                  return Container();
-                default:
+              print("has new state");
 
-                  return InitialStateWidget(
-                    loginPressed: () {
+              return SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Icon(
+                            Icons.all_inclusive,
+                            color: Colors.amber,
+                            size: 48.0,
+                            semanticLabel: 'YATL Icon',
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            textCapitalization: TextCapitalization.words,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              hintText: 'Логин:',
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Это поле должно быть заполнено';
+                              } else {
+                                return null;
+                              }
+                            },
+                            focusNode: _usernameFocus,
+                            onFieldSubmitted: (term) {
+                              _usernameFocus.unfocus();
+                              FocusScope.of(context).requestFocus(_passwordFocus);
+                            },
+                            controller: _usernameController,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            textCapitalization: TextCapitalization.words,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              hintText: 'Пароль:',
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Это поле должно быть заполнено';
+                              } else {
+                                return null;
+                              }
+                            },
+                            focusNode: _passwordFocus,
+                            onFieldSubmitted: (term) {
+                              _passwordFocus.unfocus();
+                            },
+                            controller: _passwordController,
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Center(
+                            child: SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: RaisedButton(
+                                color: Colors.amber,
+                                shape:
+                                new RoundedRectangleBorder(
+                                  borderRadius:
+                                  new BorderRadius
+                                      .circular(30.0),
+                                ),
+                                onPressed: () {
+                                  FocusScope.of(context).requestFocus(FocusNode());
 
-                      _loginInteractor.dispatch(LoginUserAction(username: "1", password: ""));
+                                  if (_formKey.currentState.validate()) {
+
+                                    _loginInteractor.dispatch(data, LoginUserAction(
+                                      username: _usernameController.text,
+                                      password: _passwordController.text,
+                                    ));
+                                  }
+                                },
+                                child: Text(
+                                  'ОТПРАВИТЬ',
+                                  style: TextStyle(color: Colors.white,),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
 
 
-                    },
-                    networkErrorPressed: () {
-//                      _loginBlock.action.add(
-//                          LoginUserAction(username: "2", password: ""));
-                    },
-                  );
-              }
             }),
       );
   }

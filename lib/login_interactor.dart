@@ -15,7 +15,7 @@ class LoginInteractor extends Interactor<LoginState, LoginAction, LoginReducer> 
 }
 
 
-abstract class LoginReducer<T extends LoginAction> extends Reducer<Stream<LoginState>, T> {}
+abstract class LoginReducer<T extends LoginAction> extends Reducer<LoginState, T> {}
 
 class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
 
@@ -26,13 +26,16 @@ class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
   }
 
   @override
-  Stream<LoginState> call(LoginUserAction action) async* {
-    yield LoadingState();
+  Stream<LoginState> call(LoginState prevState, LoginUserAction action) async* {
+    yield prevState
+      ..isLoading = true
+      ..username = action.username
+      ..password = action.password;
 
     LoginResponse response =  await _repository.login(username: action.username, password: action.password);
     print(response.isError);
 
-    yield ErrorState(error: "Some shit happen");
+//    yield ErrorState(error: "Some shit happen");
   }
 
 }
@@ -41,7 +44,7 @@ class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
 class RegisterUserActionReducer extends LoginReducer<RegisterUserAction> {
 
   @override
-  Stream<LoginState> call(RegisterUserAction action) async* {
+  Stream<LoginState> call(LoginState prevState, RegisterUserAction action) async* {
 
   }
 }
