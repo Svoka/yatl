@@ -9,3 +9,6 @@ class LoginUserAction extends LoginAction {
 
   LoginUserAction({@required this.username, @required this.password});
 }
+
+
+class RegisterUserAction extends LoginAction {}

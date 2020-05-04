@@ -10,7 +10,7 @@ GetIt getIt = GetIt.instance;
 void main() {
   getIt.registerLazySingleton<LoginRepository>(() => LoginRepositoryImplementation());
   getIt.registerLazySingleton<LoginInteractor>(() {
-    return LoginInteractor(repository: getIt<LoginRepository>());
+    return LoginInteractor();
   });
 
   runApp(MyApp());
