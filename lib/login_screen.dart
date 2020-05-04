@@ -26,7 +26,14 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context, snapshot) {
 
               switch (snapshot.data.runtimeType) {
-                case InitialState:
+                case ErrorState:
+                  ErrorState state = snapshot.data;
+                  return ErrorStateWidget(errorText: state.error,);
+
+                case LoadingState:
+                  return Container();
+                default:
+
                   return InitialStateWidget(
                     loginPressed: () {
 
@@ -39,15 +46,7 @@ class _LoginPageState extends State<LoginPage> {
 //                          LoginUserAction(username: "2", password: ""));
                     },
                   );
-                case ErrorState:
-                  ErrorState state = snapshot.data;
-                  return ErrorStateWidget(errorText: state.error,);
-
-                case LoadingState:
-                  return Container();
               }
-
-              return Container(); // default
             }),
       );
   }

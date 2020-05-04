@@ -7,32 +7,11 @@ import 'package:error_proof_demo/state_management/Reducer.dart';
 import 'package:error_proof_demo/login_actions.dart';
 import 'package:get_it/get_it.dart';
 
+import 'state_management/Interactor.dart';
 
 
-class LoginInteractor {
-  StreamController<LoginState> _stateController = StreamController();
-  Stream get state => _stateController.stream;
-  Sink get _stateSink => _stateController.sink;
-
-  Map<Type, Reducer> map = Map.fromEntries([
-    MapEntry(LoginUserAction, LoginUserActionReducer()),
-    MapEntry(RegisterUserAction, RegisterUserActionReducer()),
-  ]);
-
-  StreamListener _stateListener;
-
-  LoginInteractor() {
-    _stateController.sink.add(InitialState());
-    _stateListener = (state) {_stateSink.add(state);};
-  }
-
-  void dispatch(LoginAction action) {
-    map[action.runtimeType]?.call(action)?.listen(_stateListener);
-  }
-
-  void dispose() {
-    _stateController.close();
-  }
+class LoginInteractor extends Interactor<LoginState, LoginAction, LoginReducer> {
+  LoginInteractor(Map<Type, LoginReducer> reducers, {LoginState initialState}): super(reducers);
 }
 
 
