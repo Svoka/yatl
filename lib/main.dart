@@ -1,3 +1,4 @@
+import 'package:error_proof_demo/LoginState.dart';
 import 'package:error_proof_demo/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -9,12 +10,13 @@ import 'repositories/login_repository.dart';
 GetIt getIt = GetIt.instance;
 
 void main() {
-  getIt.registerLazySingleton<LoginRepository>(() => LoginRepositoryImplementation());
+  getIt.registerLazySingleton<LoginRepository>(() =>LoginRepositoryImplementation());
   getIt.registerLazySingleton<LoginInteractor>(() {
     return LoginInteractor(Map.fromEntries([
       MapEntry(LoginUserAction, LoginUserActionReducer()),
       MapEntry(RegisterUserAction, RegisterUserActionReducer()),
-    ])
+    ]),
+        LoginState()
     );
   });
 

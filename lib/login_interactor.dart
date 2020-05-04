@@ -11,7 +11,9 @@ import 'state_management/Interactor.dart';
 
 
 class LoginInteractor extends Interactor<LoginState, LoginAction, LoginReducer> {
-  LoginInteractor(Map<Type, LoginReducer> reducers, {LoginState initialState}): super(reducers);
+  LoginInteractor(Map<Type, LoginReducer> reducers, LoginState initialState): super(reducers, initialState) {
+    // here, someone can modify default state, for example if you need to check DB or network First
+  }
 }
 
 
@@ -35,7 +37,12 @@ class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
     LoginResponse response =  await _repository.login(username: action.username, password: action.password);
     print(response.isError);
 
-//    yield ErrorState(error: "Some shit happen");
+    yield prevState
+      ..isLoading = false;
+
+
+    yield prevState..isNavigational = true;
+
   }
 
 }

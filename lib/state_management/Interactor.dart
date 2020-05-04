@@ -14,7 +14,10 @@ abstract class Interactor<S extends State, A extends StateAction, R extends Redu
 
   StreamListener _stateListener;
 
-  Interactor(this.reducers) {
+  Interactor(this.reducers, S initialState) {
+    if (initialState != null) {
+      _stateSink.add(initialState);
+    }
     _stateListener = (state) {_stateSink.add(state);};
   }
 

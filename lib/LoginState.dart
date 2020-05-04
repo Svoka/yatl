@@ -3,7 +3,7 @@ import 'state_management/State.dart';
 
 
 //@immutable
-class LoginState extends State {
+class LoginState extends State with NavigationState {
   bool isLoading = false;
   String username;
   String password;
@@ -12,6 +12,8 @@ class LoginState extends State {
 
 }
 
+
+//class LoginStateWithNavigation extends LoginState with NavigationState {}
 
 //class InitialState extends LoginState {
 //  @override
@@ -31,3 +33,5 @@ class LoginState extends State {
 //  @override
 //  String toString() => 'ErrorState';
 //}
+
+class NavigationState {}
