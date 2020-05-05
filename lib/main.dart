@@ -1,5 +1,6 @@
 import 'package:error_proof_demo/LoginState.dart';
 import 'package:error_proof_demo/login_screen.dart';
+import 'package:error_proof_demo/todo_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -32,7 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: LoginPage(),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => LoginPage(),
+      '/list': (context) => TodoList(),
+    }
     );
   }
 }

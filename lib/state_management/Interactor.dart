@@ -18,7 +18,9 @@ abstract class Interactor<S extends State, A extends StateAction, R extends Redu
     if (initialState != null) {
       _stateSink.add(initialState);
     }
-    _stateListener = (state) {_stateSink.add(state);};
+    _stateListener = (state) {
+      print("new state added ${state.isNavigational}");
+      _stateSink.add(state);};
   }
 
   void dispatch(S prevState, A action) {

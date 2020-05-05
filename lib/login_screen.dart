@@ -1,22 +1,23 @@
 import 'package:error_proof_demo/LoginState.dart';
 import 'package:error_proof_demo/login_actions.dart';
 import 'package:error_proof_demo/login_interactor.dart';
+import 'package:error_proof_demo/todo_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+import 'state_management/Widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with Navigational{
 
 
   final _formKey = GlobalKey<FormState>();
-
   final FocusNode _usernameFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
-
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -35,20 +36,17 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context, snapshot) {
 
               LoginState data = snapshot.data;
-              _usernameController.text = data?.username;
-
-
               if (data == null) {
                 return Container();
               }
-
-              if (data.isNavigational) {
-                //do navigation stuff here
+              if (data.isNavigational && !data.handled) {
+                data.handled = true;
+                handleNavigation(context, data);
+                return Container();
               }
-
-              print(snapshot.data.username);
-
-              return Stack(
+              _usernameController.text = data?.username;
+              return
+                Stack(
                 children: <Widget>[
                   SingleChildScrollView(
 
@@ -164,6 +162,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  MaterialButton(child: Text("PressMe"), onPressed: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => TodoList()));
+                  },)
                 ],
 
               );
@@ -178,45 +182,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class InitialStateWidget extends StatelessWidget {
-
-  final Function loginPressed;
-  final Function networkErrorPressed;
-
-  InitialStateWidget({@required this.loginPressed, @required this.networkErrorPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-
-      child: Column(
-        children: <Widget>[
-          MaterialButton(
-            onPressed: loginPressed,
-            child: Text("Login"),
-          ),
-          MaterialButton(
-            onPressed: networkErrorPressed,
-            child: Text("Network error"),
-          ),
-        ],
-      ),
-
-    );
-  }
-}
 
 
 
-class ErrorStateWidget extends StatelessWidget {
-  final String errorText;
 
-  ErrorStateWidget({@required this.errorText});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(errorText),
-    );
-  }
-}
