@@ -1,20 +1,20 @@
-import 'package:meta/meta.dart';
+import 'state_management/Navigational.dart';
 import 'state_management/State.dart';
 
 
-//@immutable
-class LoginState extends State with NavigationState {
+class LoginState extends State{
   bool isLoading = false;
   String username;
   String password;
-  String error;
+  Map<LoginError, String> errors;
 
   LoginState(): super();
 
-  LoginState.create({this.isLoading = false, this.username, this.password, this.error, bool isNavigational}): super(isNavigational: isNavigational);
+  LoginState.create({this.isLoading = false, this.username, this.password, this.errors, bool isNavigational, NavigationMethod navigationMethod, String navigationPath}):
+        super(isNavigational: isNavigational, navigationMethod: navigationMethod, navigationPath: navigationPath);
 
 
-  LoginState copyWith({bool isLoading, String username, String password, String error, bool isNavigational}) {
+  LoginState copyWith({bool isLoading, String username, String password, Map<LoginError, String> errors, bool isNavigational, NavigationMethod navigationMethod, String navigationPath}) {
     LoginState newState =  LoginState();
 
     if (isLoading != null) {
@@ -26,38 +26,26 @@ class LoginState extends State with NavigationState {
     if (password != null) {
       newState.password = password;
     }
-    if (error != null) {
-      newState.error = error;
+    if (errors != null) {
+      newState.errors = errors;
     }
     if (isNavigational != null) {
       newState.isNavigational = isNavigational;
     }
+
+    if (navigationMethod != null) {
+      newState.navigationMethod = navigationMethod;
+    }
+
+    if (navigationPath != null) {
+      newState.navigationPath = navigationPath;
+    }
+
     return newState;
   }
 
-
 }
 
-
-//class LoginStateWithNavigation extends LoginState with NavigationState {}
-
-//class InitialState extends LoginState {
-//  @override
-//  String toString() => 'InitialState';
-//}
-//
-//class LoadingState extends LoginState {
-//  @override
-//  String toString() => 'LoadingState';
-//}
-//
-//class ErrorState extends LoginState {
-//  final String error;
-//
-//  ErrorState({@required this.error});
-//
-//  @override
-//  String toString() => 'ErrorState';
-//}
-
-class NavigationState {}
+enum LoginError {
+  username, password, other
+}

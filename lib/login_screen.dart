@@ -1,20 +1,13 @@
 import 'package:error_proof_demo/LoginState.dart';
 import 'package:error_proof_demo/login_actions.dart';
 import 'package:error_proof_demo/login_interactor.dart';
-import 'package:error_proof_demo/todo_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'state_management/Widget.dart';
-
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> with Navigational{
+import 'state_management/ReduxStreamBuilder.dart';
 
 
+class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final FocusNode _usernameFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
@@ -25,28 +18,24 @@ class _LoginPageState extends State<LoginPage> with Navigational{
 
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-        appBar: AppBar(
-          title: Text("Demo app"),
-        ),
-        body:
-        StreamBuilder<LoginState>(
-            stream: _loginInteractor.state,
-            builder: (context, snapshot) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Demo app"),
+      ),
+      body:
+      ReduxStreamBuilder<LoginState>(
+          stream: _loginInteractor.state,
 
-              LoginState data = snapshot.data;
-              if (data == null) {
-                return Container();
-              }
-              if (data.isNavigational && !data.handled) {
-                data.handled = true;
-                handleNavigation(context, data);
-                return Container();
-              }
-              _usernameController.text = data?.username;
-              return
-                Stack(
+          builder: (context, snapshot) {
+            LoginState data = snapshot.data;
+            _usernameController.text = data?.username;
+
+            if (data.errors!=null && data.errors[LoginError.other] != null && !data.handled) {
+              data.handled = true;
+              showError(context, data.errors[LoginError.other]);
+            }
+
+            return Stack(
                 children: <Widget>[
                   SingleChildScrollView(
 
@@ -72,15 +61,9 @@ class _LoginPageState extends State<LoginPage> with Navigational{
                                 textCapitalization: TextCapitalization.words,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintText: 'Логин:',
+                                    hintText: 'Имя пользователя:',
+                                    errorText: data.errors!=null?data.errors[LoginError.username]:null
                                 ),
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Это поле должно быть заполнено';
-                                  } else {
-                                    return null;
-                                  }
-                                },
                                 focusNode: _usernameFocus,
                                 onFieldSubmitted: (term) {
                                   _usernameFocus.unfocus();
@@ -97,15 +80,8 @@ class _LoginPageState extends State<LoginPage> with Navigational{
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   hintText: 'Пароль:',
-                                  errorText: 'Это тест поля с ошибкой',
+                                  errorText: data.errors!=null?data.errors[LoginError.password]:null,
                                 ),
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Это поле должно быть заполнено';
-                                  } else {
-                                    return null;
-                                  }
-                                },
                                 focusNode: _passwordFocus,
                                 onFieldSubmitted: (term) {
                                   _passwordFocus.unfocus();
@@ -130,15 +106,11 @@ class _LoginPageState extends State<LoginPage> with Navigational{
                                     onPressed: () {
                                       FocusScope.of(context).requestFocus(
                                           FocusNode());
-
-//                                  if (_formKey.currentState.validate()) {
-
-                                      _loginInteractor.dispatch(
-                                          data, LoginUserAction(
-                                        username: _usernameController.text,
-                                        password: _passwordController.text,
-                                      ));
-//                                  }
+                                      _loginInteractor.dispatch(data,
+                                          LoginUserAction(
+                                            username: _usernameController.text,
+                                            password: _passwordController.text,
+                                          ));
                                     },
                                     child: Text(
                                       'ОТПРАВИТЬ',
@@ -162,26 +134,35 @@ class _LoginPageState extends State<LoginPage> with Navigational{
                       ),
                     ),
                   ),
-                  MaterialButton(child: Text("PressMe"), onPressed: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => TodoList()));
-                  },)
                 ],
 
               );
-            }),
-      );
+          }),
+    );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _loginInteractor.dispose();
+  void showError(BuildContext bc, String title) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showModalBottomSheet(
+          context: bc,
+          builder: (BuildContext bc) {
+            return Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(
+                        Icons.error,
+                        color: Colors.amber,
+                      ),
+                      title: new Text(title),
+                      onTap: () => {}),
+                ],
+              ),
+            );
+          });
+    });
   }
 }
-
 
 
 

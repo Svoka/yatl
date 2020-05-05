@@ -1,6 +1,7 @@
 
 class LoginResponse {
     final bool isError;
+    final String token;
 
-    LoginResponse({this.isError});
+    LoginResponse({this.isError, this.token});
 }

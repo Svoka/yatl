@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       ),
     initialRoute: '/',
     routes: {
-      '/': (context) => LoginPage(),
+      '/': (context) => LoginScreen(),
       '/list': (context) => TodoList(),
     }
     );

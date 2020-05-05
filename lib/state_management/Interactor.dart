@@ -12,15 +12,13 @@ abstract class Interactor<S extends State, A extends StateAction, R extends Redu
 
   final Map<Type, R> reducers;
 
-  StreamListener _stateListener;
+  StateListener _stateListener;
 
   Interactor(this.reducers, S initialState) {
     if (initialState != null) {
       _stateSink.add(initialState);
     }
-    _stateListener = (state) {
-      print("new state added ${state.isNavigational}");
-      _stateSink.add(state);};
+    _stateListener = (state) {_stateSink.add(state);};
   }
 
   void dispatch(S prevState, A action) {
@@ -31,4 +29,4 @@ abstract class Interactor<S extends State, A extends StateAction, R extends Redu
     _stateController.close();
   }
 }
-typedef void StreamListener(State _);
+typedef void StateListener(State _);
