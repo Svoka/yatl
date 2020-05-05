@@ -21,6 +21,10 @@ abstract class Interactor<S extends State, A extends StateAction, R extends Redu
     _stateListener = (state) {_stateSink.add(state);};
   }
 
+  void dispatchState(S state) {
+    _stateSink.add(state);
+  }
+
   void dispatch(S prevState, A action) {
     reducers[action.runtimeType]?.call(prevState, action)?.listen(_stateListener);
   }

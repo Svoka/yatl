@@ -1,4 +1,4 @@
-import 'state_management/StateAction.dart';
+import '../state_management/StateAction.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class LoginAction extends StateAction {}

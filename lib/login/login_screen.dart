@@ -1,10 +1,10 @@
-import 'package:error_proof_demo/LoginState.dart';
-import 'package:error_proof_demo/login_actions.dart';
-import 'package:error_proof_demo/login_interactor.dart';
+import 'package:error_proof_demo/login/LoginState.dart';
+import 'package:error_proof_demo/login/login_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'state_management/ReduxStreamBuilder.dart';
+import '../state_management/ReduxStreamBuilder.dart';
+import 'login_interactor.dart';
 
 
 class LoginScreen extends StatelessWidget {

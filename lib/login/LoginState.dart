@@ -1,5 +1,5 @@
-import 'state_management/Navigational.dart';
-import 'state_management/State.dart';
+import '../state_management/Navigational.dart';
+import '../state_management/State.dart';
 
 
 class LoginState extends State{
