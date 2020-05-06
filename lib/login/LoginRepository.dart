@@ -1,4 +1,4 @@
-import 'package:error_proof_demo/model/login_response.dart';
+import 'package:yatl/model/LoginResponse.dart';
 
 abstract class LoginRepository {
   Future<LoginResponse> login({String username, String password});

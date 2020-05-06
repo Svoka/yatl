@@ -1,5 +1,5 @@
-import 'package:error_proof_demo/model/Todo.dart';
-import 'package:error_proof_demo/state_management/StateAction.dart';
+import 'package:yatl/model/Todo.dart';
+import 'package:yatl/state_management/StateAction.dart';
 
 abstract class TodoListAction extends StateAction {}
 

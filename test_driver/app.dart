@@ -1,5 +1,5 @@
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:error_proof_demo/main.dart' as app;
+import 'package:yatl/main.dart' as app;
 
 void main() {
   // This line enables the extension.

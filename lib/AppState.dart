@@ -1,5 +1,0 @@
-class AppState {
-  String token;
-
-
-}

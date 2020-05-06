@@ -1,8 +1,8 @@
-import 'package:error_proof_demo/model/Todo.dart';
-import 'package:error_proof_demo/state_management/Interactor.dart';
-import 'package:error_proof_demo/state_management/Reducer.dart';
-import 'package:error_proof_demo/todolist/TodoActions.dart';
-import 'package:error_proof_demo/todolist/TodoListRepository.dart';
+import 'package:yatl/model/Todo.dart';
+import 'package:yatl/state_management/Interactor.dart';
+import 'package:yatl/state_management/Reducer.dart';
+import 'package:yatl/todolist/TodoActions.dart';
+import 'package:yatl/todolist/TodoListRepository.dart';
 
 import 'TodoListState.dart';
 

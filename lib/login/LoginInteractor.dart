@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:error_proof_demo/login/LoginState.dart';
-import 'package:error_proof_demo/model/login_response.dart';
-import 'package:error_proof_demo/login/LoginRepository.dart';
-import 'package:error_proof_demo/state_management/Interactor.dart';
-import 'package:error_proof_demo/state_management/Navigational.dart';
-import 'package:error_proof_demo/state_management/Reducer.dart';
-import 'package:error_proof_demo/login/LoginActions.dart';
-import 'package:get_it/get_it.dart';
+import 'package:yatl/login/LoginState.dart';
+import 'package:yatl/model/LoginResponse.dart';
+import 'package:yatl/login/LoginRepository.dart';
+import 'package:yatl/state_management/Interactor.dart';
+import 'package:yatl/state_management/Navigational.dart';
+import 'package:yatl/state_management/Reducer.dart';
+import 'package:yatl/login/LoginActions.dart';
 
 
 
@@ -65,10 +64,4 @@ class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
       yield nextState;
     }
   }
-}
-
-
-class RegisterUserActionReducer extends LoginReducer<RegisterUserAction> {
-  @override
-  Stream<LoginState> call(LoginState prevState, RegisterUserAction action) async* {}
 }

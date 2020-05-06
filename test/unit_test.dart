@@ -1,8 +1,8 @@
-import 'package:error_proof_demo/login/LoginActions.dart';
-import 'package:error_proof_demo/login/LoginInteractor.dart';
-import 'package:error_proof_demo/login/LoginRepository.dart';
-import 'package:error_proof_demo/login/LoginState.dart';
-import 'package:error_proof_demo/model/login_response.dart';
+import 'package:yatl/login/LoginActions.dart';
+import 'package:yatl/login/LoginInteractor.dart';
+import 'package:yatl/login/LoginRepository.dart';
+import 'package:yatl/login/LoginState.dart';
+import 'package:yatl/model/LoginResponse.dart';
 import 'package:test/test.dart';
 import 'package:async/async.dart';
 

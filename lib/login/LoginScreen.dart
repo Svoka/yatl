@@ -1,5 +1,5 @@
-import 'package:error_proof_demo/login/LoginState.dart';
-import 'package:error_proof_demo/login/LoginActions.dart';
+import 'package:yatl/login/LoginState.dart';
+import 'package:yatl/login/LoginActions.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 

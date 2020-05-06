@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:error_proof_demo/model/Todo.dart';
+import 'package:yatl/model/Todo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class TodoListRepository {

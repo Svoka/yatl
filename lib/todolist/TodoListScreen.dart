@@ -1,8 +1,8 @@
-import 'package:error_proof_demo/model/Todo.dart';
-import 'package:error_proof_demo/state_management/ReduxStreamBuilder.dart';
-import 'package:error_proof_demo/todolist/TodoActions.dart';
-import 'package:error_proof_demo/todolist/TodoListInteractor.dart';
-import 'package:error_proof_demo/todolist/TodoListState.dart';
+import 'package:yatl/model/Todo.dart';
+import 'package:yatl/state_management/ReduxStreamBuilder.dart';
+import 'package:yatl/todolist/TodoActions.dart';
+import 'package:yatl/todolist/TodoListInteractor.dart';
+import 'package:yatl/todolist/TodoListState.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';

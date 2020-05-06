@@ -1,5 +1,5 @@
-name: error_proof_demo
-description: Demo with global error handler
+name: yatl
+description: Reinvent the wheel and create YATL
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43

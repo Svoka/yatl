@@ -1,9 +1,9 @@
-import 'package:error_proof_demo/login/LoginState.dart';
-import 'package:error_proof_demo/login/LoginScreen.dart';
-import 'package:error_proof_demo/todolist/TodoActions.dart';
-import 'package:error_proof_demo/todolist/TodoListInteractor.dart';
-import 'package:error_proof_demo/todolist/TodoListScreen.dart';
-import 'package:error_proof_demo/todolist/TodoListState.dart';
+import 'package:yatl/login/LoginState.dart';
+import 'package:yatl/login/LoginScreen.dart';
+import 'package:yatl/todolist/TodoActions.dart';
+import 'package:yatl/todolist/TodoListInteractor.dart';
+import 'package:yatl/todolist/TodoListScreen.dart';
+import 'package:yatl/todolist/TodoListState.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -12,7 +12,6 @@ import 'login/LoginActions.dart';
 import 'login/LoginInteractor.dart';
 import 'login/LoginRepository.dart';
 import 'todolist/TodoListRepository.dart';
-import 'package:flutter/material.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -21,10 +20,7 @@ void main() {
 
   getIt.registerLazySingleton<LoginRepository>(() => LoginRepositoryImplementation());
   getIt.registerLazySingleton<LoginInteractor>(() {
-    return LoginInteractor(Map.fromEntries([
-      MapEntry(LoginUserAction, LoginUserActionReducer(getIt<LoginRepository>())),
-      MapEntry(RegisterUserAction, RegisterUserActionReducer()),
-    ]),
+    return LoginInteractor(Map.fromEntries([MapEntry(LoginUserAction, LoginUserActionReducer(getIt<LoginRepository>()))]),
         LoginState()
     );
   });

@@ -1,8 +1,8 @@
-import 'package:error_proof_demo/login/LoginState.dart';
-import 'package:error_proof_demo/login/LoginScreen.dart';
-import 'package:error_proof_demo/model/Todo.dart';
-import 'package:error_proof_demo/todolist/TodoListScreen.dart';
-import 'package:error_proof_demo/todolist/TodoListState.dart';
+import 'package:yatl/login/LoginState.dart';
+import 'package:yatl/login/LoginScreen.dart';
+import 'package:yatl/model/Todo.dart';
+import 'package:yatl/todolist/TodoListScreen.dart';
+import 'package:yatl/todolist/TodoListState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
