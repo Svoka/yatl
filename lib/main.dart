@@ -1,5 +1,5 @@
 import 'package:error_proof_demo/login/LoginState.dart';
-import 'package:error_proof_demo/login/login_screen.dart';
+import 'package:error_proof_demo/login/LoginScreen.dart';
 import 'package:error_proof_demo/todolist/TodoActions.dart';
 import 'package:error_proof_demo/todolist/TodoListInteractor.dart';
 import 'package:error_proof_demo/todolist/TodoListScreen.dart';
@@ -7,10 +7,10 @@ import 'package:error_proof_demo/todolist/TodoListState.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'login/login_actions.dart';
+import 'login/LoginActions.dart';
 
-import 'login/login_interactor.dart';
-import 'login/login_repository.dart';
+import 'login/LoginInteractor.dart';
+import 'login/LoginRepository.dart';
 import 'todolist/TodoListRepository.dart';
 
 GetIt getIt = GetIt.instance;
@@ -21,7 +21,7 @@ void main() {
   getIt.registerLazySingleton<LoginRepository>(() => LoginRepositoryImplementation());
   getIt.registerLazySingleton<LoginInteractor>(() {
     return LoginInteractor(Map.fromEntries([
-      MapEntry(LoginUserAction, LoginUserActionReducer()),
+      MapEntry(LoginUserAction, LoginUserActionReducer(getIt<LoginRepository>())),
       MapEntry(RegisterUserAction, RegisterUserActionReducer()),
     ]),
         LoginState()
@@ -45,15 +45,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-    initialRoute: '/list',
-    routes: {
-      '/': (context) => LoginScreen(),
-      '/list': (context) => TodoListScreen(),
-    }
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          '/list': (context) => TodoListScreen(),
+        }
     );
   }
 }

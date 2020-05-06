@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:error_proof_demo/login/LoginState.dart';
 import 'package:error_proof_demo/model/login_response.dart';
-import 'package:error_proof_demo/login/login_repository.dart';
+import 'package:error_proof_demo/login/LoginRepository.dart';
 import 'package:error_proof_demo/state_management/Interactor.dart';
 import 'package:error_proof_demo/state_management/Navigational.dart';
 import 'package:error_proof_demo/state_management/Reducer.dart';
-import 'package:error_proof_demo/login/login_actions.dart';
+import 'package:error_proof_demo/login/LoginActions.dart';
 import 'package:get_it/get_it.dart';
 
 
@@ -25,8 +25,8 @@ class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
 
   LoginRepository _repository;
 
-  LoginUserActionReducer() {
-    _repository = GetIt.I<LoginRepository>();
+  LoginUserActionReducer(LoginRepository repository) {
+    this._repository = repository;
   }
 
   @override
@@ -61,7 +61,7 @@ class LoginUserActionReducer extends LoginReducer<LoginUserAction> {
         yield nextState;
       }
     } else {
-      nextState = nextState.copyWith(errors: errors);
+      nextState = nextState.copyWith(errors: errors, username: action.username, password: action.password);
       yield nextState;
     }
   }
