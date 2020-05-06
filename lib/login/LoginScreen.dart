@@ -109,6 +109,7 @@ class LoginPage extends StatelessWidget {
                     TextFormField(
                       textCapitalization: TextCapitalization.words,
                       textInputAction: TextInputAction.next,
+                      key: Key('usernameField'),
                       decoration: InputDecoration(
                           hintText: 'Имя пользователя:',
                           errorText: state.errors != null ? state.errors[LoginError.username] : null
@@ -125,6 +126,7 @@ class LoginPage extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
+                      key: Key('passwordField'),
                       textCapitalization: TextCapitalization.words,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
@@ -145,6 +147,7 @@ class LoginPage extends StatelessWidget {
                         height: 50,
                         width: 150,
                         child: RaisedButton(
+                          key: Key('loginButton'),
                           color: Colors.amber,
                           shape:
                           new RoundedRectangleBorder(
@@ -158,6 +161,7 @@ class LoginPage extends StatelessWidget {
                           },
                           child: Text(
                             'ОТПРАВИТЬ',
+                            key: Key('loginButtonText'),
                             style: TextStyle(color: Colors.white,),
                           ),
                         ),

@@ -33,6 +33,7 @@ class TodoListScreen extends StatelessWidget {
               ),
           ),
           floatingActionButton: FloatingActionButton(
+            key: Key('addTodoFab'),
             onPressed: () {
               _interactor.dispatch(state, ToggleAddingStateTodoAction());
             },
@@ -102,7 +103,9 @@ class TodoListPage extends StatelessWidget {
                                 checkCallback(index);
                               },
                             ),
-                            Text("${state.todoItems[index].title}")
+                            Text("${state.todoItems[index].title}",
+                              key: Key("T_${state.todoItems[index].title}"),
+                            )
 
                           ],
                         ),)));
@@ -119,6 +122,7 @@ class TodoListPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 16.0, right: 16.0),
                     child: TextFormField(
+                      key: Key('newTaskTextField'),
                       textCapitalization: TextCapitalization.words,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
@@ -137,6 +141,7 @@ class TodoListPage extends StatelessWidget {
                       height: 50,
                       width: 150,
                       child: RaisedButton(
+                        key: Key('newTaskButton'),
                         color: Colors.amber,
                         shape:
                         new RoundedRectangleBorder(
