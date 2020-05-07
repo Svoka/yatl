@@ -1,16 +1,27 @@
-# error_proof_demo
+# YATL
 
-Demo with global error handler
+Yet Another To-do List
 
-## Getting Started
+## What's this all about
 
-This project is a starting point for a Flutter application.
+This is experimental project where I'm step by step write redux-like application from scratch.
 
-A few resources to get you started if this is your first Flutter project:
+The goals are:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* Business logic is free from any platform-dependent code
+* Be testable, to make sure everything works as you planned.
+* Utilise declarative nature of Flutter
+* Be granular as much as needed, so people can work together.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tests included
+
+* Widget testing
+* Unit testing
+* Integration testing
+
+
+First part of the story you can find here:
+
+https://medium.com/@artemosipov/how-i-reinvented-redux-in-flutter-f59edcbc46f1
+
+
